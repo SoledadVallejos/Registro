@@ -1,7 +1,9 @@
 let acciones = require("./funciones");
 
 let process = require("process");
-let comando = process.argv[2].toLowerCase()
+let comando = process.argv[2].toLowerCase();
+let posicionTres = process.argv[3].toLowerCase();
+let posicionCuatro = process.argv[4].toLowerCase();
 
 
 
@@ -10,12 +12,11 @@ let comando = process.argv[2].toLowerCase()
 
 switch (comando) {
     case 'consultar':
-        let posicionTres = process.argv[3].toLowerCase();
-        acciones.consulta(posicionTres);
+       
+        acciones.consultar(posicionTres);
         break;
     case 'extraer':
-        let posicionCuatro = process.argv[4].toLowerCase();
-        acciones.extracion(posicionCuatro);
+        acciones.extraer(posicionTres, posicionCuatro);
         break;   
         
     default:

@@ -9,10 +9,10 @@ module.exports = acciones = {
         return prueba
      },
     guardarJSON : (info) => {
-        let nuevoJSON = JSON.stringify(info);
+        let nuevoJSON = JSON.stringify(info,null, 2);
         fs.writeFileSync('./cuentas.json', nuevoJSON, 'utf-8')
      },
-    consulta: (banco) => {
+    consultar: (banco) => {
         let resultado = 0;
         let datos = acciones.leerJSON()
     switch (banco) {
@@ -26,10 +26,10 @@ module.exports = acciones = {
             }
             break;
         case "ciudad":
-            if( datos[0].banco[0].nombre == "banco ciudad"){
+            if( datos[0].banco[0].nombre == "ciudad"){
                 resultado = datos[0].banco[0].monto;
                 console.log("El saldo de la cuenta Ciudad es : " + resultado);
-            }else if(datos[0].banco[1].nombre == "banco ciudad"){
+            }else if(datos[0].banco[1].nombre == "ciudad"){
                 resultado = datos[0].banco[1].monto;
                 console.log("El saldo de la cuenta Ciudad es : " + resultado);
             }
@@ -40,33 +40,48 @@ module.exports = acciones = {
     }
     return resultado
     },
-    extracion: (banco, monto) =>{
+    extraer: (banco, monto) =>{
         let resultado = 0;
         let datos = acciones.leerJSON();
+        if(isNaN(monto) == true){
+            console.log("Ingrese un monto valido");
+            return false
+        }
         switch (banco) {
             case "santander":
                 if (datos[0].banco[0].nombre === "santander"){
-                    resultado = datos[0].banco[0].monto -= monto //quiero que lo guarde en esta variable 
-                   console.log("Retiro la suma de: " + monto);//Muestre este resultado por consola
-                   resultado = acciones.guardarJSON;   
+                    resultado = datos[0].banco[0].monto -= monto; //quiero que lo guarde en esta variable
+                    datos[0].banco[0].monto = resultado;
+                    acciones.guardarJSON(datos)
+                   console.log("Retiro la suma de: " + monto);//Muestre este resultado por consola 
+                   console.log("Tu saldo actual es : " + resultado);//Muestre este resultado por consola 
+
                 }else if(datos[0].banco[1].nombre === "santander"){
                     resultado = datos[0].banco[1].monto -= monto;
+                    datos[0].banco[1].monto = resultado;
+                    acciones.guardarJSON(datos);
                     console.log("Retiro la suma de: " + monto);
-                    resultado = acciones.guardarJSON;
+                    console.log("Tu saldo actual es : " + resultado);
                 }
                 break;
-            case "cuidad":
-                if (datos[0].banco[0].nombre === "cuidad"){
+            case "ciudad":
+                if (datos[0].banco[0].nombre === "ciudad"){
                     resultado = datos[0].banco[0].monto -= monto;  
+                    datos[0].banco[0].monto = resultado;
+                    acciones.guardarJSON(datos);
                    console.log("Retiro la suma de: " + monto);
-                   resultado = acciones.guardarJSON;   
-                }else if(datos[0].banco[1].nombre === "cuidad"){
+                   console.log("Tu saldo actual es : " + resultado);
+                      
+                }else if(datos[0].banco[1].nombre === "ciudad"){
                     resultado = datos[0].banco[1].monto -= monto;
+                    datos[0].banco[1].monto = resultado;
+                    acciones.guardarJSON(datos);
                     console.log("Retiro la suma de: " + monto);
-                    resultado = acciones.guardarJSON;
+                    console.log("Tu saldo actual es : " + resultado);
+                    
                 }
                 break;
-            default: console.log("Debe ingresar un monto");
+            default: console.log("El banco ingresado no existe");
                 break;
         }
         return resultado

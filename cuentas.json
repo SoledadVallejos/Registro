@@ -1,7 +1,16 @@
-[{
+[
+  {
     "nombre": "Elias",
     "apellido": "Rodriguez",
-    "banco": [{"nombre": "santander","monto": 50000}, 
-        {"nombre": "banco ciudad","monto": 75000}
-        ]
-    }]
+    "banco": [
+      {
+        "nombre": "santander",
+        "monto": 20000
+      },
+      {
+        "nombre": "ciudad",
+        "monto": 72000
+      }
+    ]
+  }
+]
