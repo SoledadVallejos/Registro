@@ -87,6 +87,50 @@ module.exports = acciones = {
         return resultado
     },
     depositar: (banco, monto) =>{
+        let resultado = 0;
+        let datos = acciones.leerJSON();
+        if(isNaN(monto) == true){
+            console.log("Ingrese un monto valido");
+            return false
+        }
+        switch (banco) {
+            case "santander":
+                if (datos[0].banco[0].nombre === "santander"){
+                    resultado = datos[0].banco[0].monto += monto; 
+                    datos[0].banco[0].monto = resultado;
+                    acciones.guardarJSON(datos)
+                   console.log("Retiro la suma de: " + monto);
+                   console.log("Tu saldo actual es : " + resultado); 
+
+                }else if(datos[0].banco[1].nombre === "santander"){
+                    resultado = datos[0].banco[1].monto += monto;
+                    datos[0].banco[1].monto = resultado;
+                    acciones.guardarJSON(datos);
+                    console.log("Retiro la suma de: " + monto);
+                    console.log("Tu saldo actual es : " + resultado);
+                }
+                break;
+            case "ciudad":
+                if (datos[0].banco[0].nombre === "ciudad"){
+                    resultado = datos[0].banco[0].monto += monto;  
+                    datos[0].banco[0].monto = resultado;
+                    acciones.guardarJSON(datos);
+                   console.log("Retiro la suma de: " + monto);
+                   console.log("Tu saldo actual es : " + resultado);
+                      
+                }else if(datos[0].banco[1].nombre === "ciudad"){
+                    resultado = datos[0].banco[1].monto += monto;
+                    datos[0].banco[1].monto = resultado;
+                    acciones.guardarJSON(datos);
+                    console.log("Retiro la suma de: " + monto);
+                    console.log("Tu saldo actual es : " + resultado);
+                    
+                }
+                break;
+            default: console.log("El banco ingresado no existe");
+                break;
+        }
+        return resultado
 
     } 
 }

@@ -5,11 +5,11 @@
     "banco": [
       {
         "nombre": "santander",
-        "monto": 20000
+        "monto": 110000
       },
       {
         "nombre": "ciudad",
-        "monto": 72000
+        "monto": 82000
       }
     ]
   }
